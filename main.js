@@ -12,6 +12,42 @@ for (let i = 0; i < SQUARES; i++) {
   container.appendChild(square);
 }
 
+let activeSquare = null;
+
+container.addEventListener('touchstart', handleTouch, { passive: false });
+container.addEventListener('touchmove', handleTouch, { passive: false });
+container.addEventListener('touchend', handleTouchEnd);
+container.addEventListener('touchcancel', handleTouchEnd);
+
+function handleTouch(event) {
+  event.preventDefault();
+  const touch = event.touches[0];
+  const target = document.elementFromPoint(touch.clientX, touch.clientY);
+
+  if (target === activeSquare) return;
+
+  if (activeSquare) {
+    activeSquare.classList.remove('active');
+    removeColor(activeSquare);
+  }
+
+  if (target && target.classList.contains('square')) {
+    target.classList.add('active');
+    setColor(target);
+    activeSquare = target;
+  } else {
+    activeSquare = null;
+  }
+}
+
+function handleTouchEnd() {
+  if (activeSquare) {
+    activeSquare.classList.remove('active');
+    removeColor(activeSquare);
+    activeSquare = null;
+  }
+}
+
 function setColor(element) {
   const color = colors[Math.floor(Math.random() * colors.length)];
   element.style.background = color;

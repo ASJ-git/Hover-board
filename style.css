@@ -13,6 +13,8 @@ body {
   align-items: center;
   height: 100vh;
   font-family: 'Poppins', sans-serif;
+  padding: 1rem;
+  text-align: center;
 }
 h4 {
   margin-bottom: 1rem;
@@ -24,7 +26,8 @@ h4 {
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  max-width: 400px;
+  max-width: min(400px, 92vw);
+  touch-action: none;
 }
 .square {
   background-color: #1d1d1d;
@@ -34,6 +37,15 @@ h4 {
   margin: 2px;
   transition: 2s ease;
 }
-.square:hover {
+.square:hover,
+.square.active {
   transition-duration: 0s;
+}
+
+@media (max-width: 480px) {
+  .square {
+    height: 12px;
+    width: 12px;
+    margin: 1px;
+  }
 }
